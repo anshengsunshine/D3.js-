@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=Mutf-8n>
+    <title>1.4.2 理解函数式编程</title>
+    <script type="text/javascript" src="../d3.js文件/d3.js"></script>
+</head>
+
+<body>
+    <script>
+        function SimpleWidget(spec) {
+            var instance = {}; // <-- A
+            var headline, description; // <-- B
+            instance.render = function () {
+                var div = d3.select("body").append("div");
+                div.append("h3").text(headline); // <— C
+                div.attr("class", "box")
+                    .attr("style", "color:" + spec.color) // <一一 D
+                    .append("p")
+                    .text(description); // <-一 E
+                return instance; // <-- F -
+            }
+            instance.headline = function (h) {
+                if (!arguments.length) h; // <-- G 
+                headline = h;
+                return instance; // <-- H
+            }
+            instance.description = function (d) {
+                if (!arguments.length) d;
+                description = d;
+                return instance;
+            }
+            return instance; // <-- I
+        }
+        var widget = SimpleWidget({
+            color: "#6495ed"
+        })
+            .headline("Simple Widget")
+            .description("This is a simple widget demonstrating functional javascript."); widget.render();
+
+    </script>
+</body>
+
+</html>
